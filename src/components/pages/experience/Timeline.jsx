@@ -37,7 +37,6 @@ function formatMonthYear(d) {
     return date.toLocaleString("default", { month: "short", year: "numeric" });
 }
 
-// cubic bezier path generator for one curved branch
 function branchPath(x0, y0, x1, drop) {
     const yEnd = y0 + drop;
     const c1x = x0;
@@ -56,9 +55,10 @@ export default function Timeline({
     spineX = 100,
     labelX = 180,
     branchDrop = 20,
-    stroke = "#525252",
+    stroke,
     strokeWidth = 2,
     className = "",
+    isDark = false,
 }) {
     if (!items.length) return null;
 
@@ -68,10 +68,28 @@ export default function Timeline({
 
     const monthIndices = sorted.map((i) => toMonthIndex(i.date));
     const minIdx = Math.min(...monthIndices);
-    const maxIdx = Math.max(...monthIndices);
+    const nowIdx = toMonthIndex(new Date());
+    const maxIdx = Math.max(...monthIndices, nowIdx);
     const monthsRange = Math.max(1, maxIdx - minIdx);
     const height =
         paddingTop + monthsRange * pxPerMonth + branchDrop + paddingBottom;
+
+    const resolvedStroke = stroke ?? (isDark ? "#a3a3a3" : "#525252");
+
+    // ✅ Tailwind SVG fix: use fill-* for color
+    const dateTextClass = `text-sm select-none ${isDark ? "fill-neutral-400" : "fill-neutral-500"
+        }`;
+
+    const itemTextClass = `text-sm select-none ${isDark ? "fill-neutral-200" : "fill-neutral-800"
+        }`;
+
+    const descriptionTextClass = `text-xs select-none ${isDark ? "fill-neutral-400" : "fill-neutral-600"
+        }`;
+
+    const institutionClass = `font-semibold ${isDark ? "fill-neutral-100" : "fill-neutral-900"
+        }`;
+
+    const labelClass = `italic ${isDark ? "fill-neutral-300" : "fill-neutral-700"}`;
 
     const spineY1 = paddingTop;
     const spineY2 = height - paddingBottom;
@@ -92,7 +110,7 @@ export default function Timeline({
                 y1={spineY1}
                 x2={spineX}
                 y2={spineY2}
-                stroke={stroke}
+                stroke={resolvedStroke}
                 strokeWidth={strokeWidth}
                 strokeLinecap="round"
             />
@@ -110,7 +128,7 @@ export default function Timeline({
                         <path
                             d={d}
                             fill="none"
-                            stroke={stroke}
+                            stroke={resolvedStroke}
                             strokeWidth={strokeWidth}
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -120,31 +138,24 @@ export default function Timeline({
                             x={dateX}
                             y={labelY}
                             textAnchor="end"
-                            className="text-neutral-500 text-sm select-none"
+                            className={dateTextClass}
                         >
                             {formatMonthYear(item.date)}
                         </text>
 
-                        <text
-                            x={labelX}
-                            y={labelY}
-                            className="text-sm select-none"
-                            fill="#1a1a1a"
-                        >
-                            <tspan className="font-semibold text-neutral-900">
+                        <text x={labelX} y={labelY} className={itemTextClass}>
+                            <tspan className={institutionClass}>
                                 {item.institution}
                             </tspan>
                             {" — "}
-                            <tspan className="italic text-neutral-700">
-                                {item.label}
-                            </tspan>
+                            <tspan className={labelClass}>{item.label}</tspan>
                         </text>
 
                         {item.description && (
                             <text
                                 x={labelX}
                                 y={descriptionY}
-                                className="text-neutral-600 text-xs select-none"
+                                className={descriptionTextClass}
                             >
                                 {item.description}
                             </text>

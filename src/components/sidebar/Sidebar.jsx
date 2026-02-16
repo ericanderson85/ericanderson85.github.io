@@ -3,17 +3,17 @@ import SolarCodeSquareBold from "../icons/SolarCodeSquareBold";
 import SolarChatSquare2Bold from "../icons/SolarChatSquare2Bold";
 import SolarMentionSquareBold from "../icons/SolarMentionSquareBold";
 
-export default function Sidebar({ active, onNavigate }) {
-    const activeFormatting = "bg-gradient-to-br from-white via-neutral-100 to-neutral-200 outline-1 outline-neutral-200/50 text-neutral-700 shadow-md";
-    const hoverFormatting = "hover:bg-gradient-to-br hover:from-white hover:via-neutral-100 hover:to-neutral-200 hover:outline-1 hover:outline-neutral-200/50 hover:shadow-md";
+export default function Sidebar({ active, onNavigate, isDark }) {
+    const activeFormatting = isDark ? "gradient-dark text-neutral-200 shadow-md" : "gradient text-neutral-700 shadow-md";
+    const hoverFormatting = isDark ? "hover-gradient-dark hover:shadow-md" : "hover-gradient hover:shadow-md";
 
     return (
         <div className="h-full w-48 flex flex-col items-center pt-2 gap-2">
-            <div className="text-xl font-extrabold cursor-default">
+            <div className={`text-xl font-extrabold cursor-default ${isDark ? 'text-neutral-100' : ''}`}>
                 Eric Anderson
             </div>
 
-            <nav className="h-full w-full flex flex-col text-neutral-600">
+            <nav className={`h-full w-full flex flex-col ${isDark ? 'text-neutral-300' : 'text-neutral-600'}`}>
                 <div className="w-full text-lg font-bold p-1">
                     <div
                         className={`cursor-pointer w-full flex gap-2 items-center py-1 px-2 rounded-lg ${hoverFormatting} ${active == "ABOUT" ? activeFormatting : ""}`}

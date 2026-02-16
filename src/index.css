@@ -1,3 +1,44 @@
 @import "tailwindcss";
 
 @theme {}
+
+@layer components {
+  .gradient-bg {
+    background: #F5F5F5;
+    background: -webkit-linear-gradient(180deg, rgba(245, 245, 245, 1) 0%, rgba(229, 229, 229, 1) 100%);
+    background: -moz-linear-gradient(180deg, rgba(245, 245, 245, 1) 0%, rgba(229, 229, 229, 1) 100%);
+    background: linear-gradient(180deg, rgba(245, 245, 245, 1) 0%, rgba(229, 229, 229, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#F5F5F5", endColorstr="#E5E5E5", GradientType=0);
+  }
+
+  .gradient-bg-dark {
+    background: #1a1a1a;
+    background: -webkit-linear-gradient(180deg, rgba(26, 26, 26, 1) 0%, rgba(13, 13, 13, 1) 100%);
+    background: -moz-linear-gradient(180deg, rgba(26, 26, 26, 1) 0%, rgba(13, 13, 13, 1) 100%);
+    background: linear-gradient(180deg, rgba(26, 26, 26, 1) 0%, rgba(13, 13, 13, 1) 100%);
+  }
+
+  .gradient {
+    background: #F5F5F5;
+    background: radial-gradient(circle, rgba(245, 245, 245, 1) 100%, rgba(255, 255, 255, 1) 95%, rgba(245, 245, 245, 1) 90%, rgba(229, 229, 229, 1) 30%);
+    outline: 1px solid rgba(229, 229, 229, 0.5);
+  }
+
+  .gradient-dark {
+    background: #262626;
+    background: radial-gradient(circle, rgba(38, 38, 38, 1) 100%, rgba(64, 64, 64, 1) 95%, rgba(38, 38, 38, 1) 90%, rgba(23, 23, 23, 1) 30%);
+    outline: 1px solid rgba(64, 64, 64, 0.5);
+  }
+
+  .hover-gradient:hover {
+    background: #F5F5F5;
+    background: radial-gradient(circle, rgba(245, 245, 245, 1) 100%, rgba(255, 255, 255, 1) 95%, rgba(245, 245, 245, 1) 90%, rgba(229, 229, 229, 1) 30%);
+    outline: 1px solid rgba(229, 229, 229, 0.5);
+  }
+
+  .hover-gradient-dark:hover {
+    background: #262626;
+    background: radial-gradient(circle, rgba(38, 38, 38, 1) 100%, rgba(64, 64, 64, 1) 95%, rgba(38, 38, 38, 1) 90%, rgba(23, 23, 23, 1) 30%);
+    outline: 1px solid rgba(64, 64, 64, 0.5);
+  }
+}

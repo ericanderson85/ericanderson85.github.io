@@ -6,6 +6,7 @@ import Sidebar from "./components/sidebar/Sidebar";
 import { useState, useEffect, useRef } from "react"
 
 export default function App() {
+  const isDark = false; // Toggle this to switch between light and dark mode
   const [active, setActive] = useState("ABOUT");
   const scrollContainerRef = useRef(null);
   const sectionRefs = useRef({});
@@ -66,11 +67,11 @@ export default function App() {
   };
 
   return (
-    <div className="h-full bg-gradient-to-br from-neutral-50 via-neutral-150 to-neutral-250 flex p-2 gap-2">
-      <Sidebar active={active} onNavigate={scrollToSection} />
+    <div className={`h-full ${isDark ? 'gradient-bg-dark' : 'gradient-bg'} flex p-2 gap-2`}>
+      <Sidebar active={active} onNavigate={scrollToSection} isDark={isDark} />
       <div
         ref={scrollContainerRef}
-        className="w-full h-full border-1 border-neutral-200/50 rounded-4xl flex flex-col items-center bg-white/50 backdrop-blur-md p-4 pb-20 overflow-y-auto scroll-smooth shadow-xl"
+        className={`w-full h-full border-1 ${isDark ? 'border-neutral-700/50 bg-neutral-900/70' : 'border-neutral-200/50 bg-white/70'} rounded-4xl flex flex-col items-center backdrop-blur-md p-4 pb-20 overflow-y-auto scroll-smooth shadow-xl`}
       >
         <div className="w-full flex flex-col gap-28">
           <section
@@ -78,7 +79,7 @@ export default function App() {
             ref={(el) => sectionRefs.current['about'] = el}
             className="flex items-center justify-center"
           >
-            <About />
+            <About isDark={isDark} />
           </section>
 
           <section
@@ -86,7 +87,7 @@ export default function App() {
             ref={(el) => sectionRefs.current['experience'] = el}
             className="flex items-center justify-center"
           >
-            <Experience />
+            <Experience isDark={isDark} />
           </section>
 
           <section
@@ -94,7 +95,7 @@ export default function App() {
             ref={(el) => sectionRefs.current['projects'] = el}
             className="flex items-center justify-center"
           >
-            <Projects />
+            <Projects isDark={isDark} />
           </section>
 
           <section
@@ -102,7 +103,7 @@ export default function App() {
             ref={(el) => sectionRefs.current['contact'] = el}
             className="flex items-center justify-center"
           >
-            <Contact />
+            <Contact isDark={isDark} />
           </section>
         </div>
       </div>

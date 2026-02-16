@@ -1,6 +1,6 @@
 import Timeline from "./Timeline";
 
-export default function Experience() {
+export default function Experience({ isDark }) {
     const items = [
         {
             date: "2023-09",
@@ -47,14 +47,13 @@ export default function Experience() {
 
     return (
         <div className="flex flex-col items-center gap-4">
-            <span className="font-semibold text-3xl text-neutral-900">
+            <span className={`font-semibold text-3xl ${isDark ? 'text-neutral-100' : 'text-neutral-900'}`}>
                 Experience
             </span>
-            <div className="p-6 bg-gradient-to-br from-white via-neutral-100 to-neutral-200/80 backdrop-blur-md border border-white/60 rounded-xl shadow-xl">
+            <div className={`p-6 ${isDark ? 'gradient-dark' : 'gradient'} rounded-xl shadow-xl`}>
                 <Timeline
                     items={items}
-                    className="text-neutral-800"
-                    stroke="#6b7280"
+                    isDark={isDark}
                 />
             </div>
         </div>
